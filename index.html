@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Eco Fridge Vision</title>
+<link rel="stylesheet" href="style.css">
+<script defer src="https://unpkg.com/html5-qrcode"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+</head>
+<body>
+<header class="hero">
+  <div>
+    <p class="eyebrow">Frigo intelligente</p>
+    <h1>Eco Fridge Vision</h1>
+    <p>Controlla scadenze, quantità e ricette anti spreco.</p>
+  </div>
+  <button id="openAdd" class="primary">Aggiungi prodotto</button>
+</header>
+
+<main class="grid">
+  <section class="card full">
+    <h2>Stato del frigorifero</h2>
+    <div class="stats">
+      <div><b id="urgentCount">0</b><span>Da consumare subito</span></div>
+      <div><b id="weekCount">0</b><span>Questa settimana</span></div>
+      <div><b id="freshCount">0</b><span>Freschi</span></div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Da consumare subito</h2>
+    <div id="urgentList"></div>
+  </section>
+
+  <section class="card">
+    <h2>Meal planner AI</h2>
+    <textarea id="mealPrompt" placeholder="Scrivi gli ingredienti che hai in dispensa o la ricetta che desideri"></textarea>
+    <button id="makeRecipe" class="primary wide">Genera ricetta</button>
+    <div id="recipeResult"></div>
+  </section>
+
+  <section class="card full">
+    <div class="head">
+      <h2>Il tuo frigo</h2>
+      <select id="filter">
+        <option value="all">Tutti</option>
+        <option>Verdura</option>
+        <option>Frutta</option>
+        <option>Latticini</option>
+        <option>Dispensa</option>
+        <option>Altro</option>
+      </select>
+    </div>
+    <div id="productList"></div>
+  </section>
+</main>
+
+<div id="modal" class="overlay hidden">
+  <div class="modal">
+    <button id="closeModal" class="close">×</button>
+    <h2 id="modalTitle">Aggiungi prodotto</h2>
+
+    <div id="addTabs" class="tabs">
+      <button class="tab active" data-tab="barcode">Barcode</button>
+      <button class="tab" data-tab="photo">Foto</button>
+      <button class="tab" data-tab="manual">Manuale</button>
+    </div>
+
+    <div id="barcodeTab" class="tabPanel active">
+      <p>Scansiona il barcode oppure inseriscilo manualmente.</p>
+      <div id="reader"></div>
+      <div class="actions">
+        <button id="startScan" class="secondary">Avvia scanner</button>
+        <button id="stopScan" class="secondary">Ferma scanner</button>
+      </div>
+      <div class="actions">
+        <input id="barcodeInput" placeholder="Inserisci barcode">
+        <button id="searchBarcode" class="primary">Cerca</button>
+      </div>
+      <p id="barcodeMsg" class="msg"></p>
+    </div>
+
+    <div id="photoTab" class="tabPanel">
+      <p>Carica o scatta una foto. L OCR prova a leggere nome e scadenza.</p>
+      <input type="file" id="photoInput" accept="image/*" capture="environment">
+      <img id="preview" class="preview hidden">
+      <button id="readPhoto" class="primary wide">Analizza foto</button>
+      <p id="photoMsg" class="msg"></p>
+    </div>
+
+    <div id="manualTab" class="tabPanel">
+      <p>Compila i dati a mano.</p>
+    </div>
+
+    <form id="form" class="form">
+      <input id="name" placeholder="Nome prodotto" required>
+      <input id="brand" placeholder="Marca">
+      <select id="category">
+        <option>Verdura</option>
+        <option>Frutta</option>
+        <option>Latticini</option>
+        <option>Dispensa</option>
+        <option>Altro</option>
+      </select>
+      <input id="quantity" placeholder="Quantità" required>
+      <input id="unit" placeholder="Unità">
+      <input id="expiry" type="date" required>
+      <input id="imageUrl" placeholder="URL immagine o foto caricata">
+      <textarea id="notes" placeholder="Note"></textarea>
+      <button class="primary wide" type="submit">Conferma e salva</button>
+    </form>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
