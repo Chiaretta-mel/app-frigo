@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>App Frigo</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+<h1>🥬 App Frigo</h1>
+
+<div class="card">
+<h2>Stato del frigorifero</h2>
+<p>Controlla i prodotti in scadenza e riduci gli sprechi.</p>
+</div>
+
+<div class="card">
+<h2>Il tuo frigo</h2>
+<div id="products"></div>
+</div>
+
+<div class="card">
+<h2>Meal Planner AI</h2>
+<input id="prompt" placeholder="Ho pasta, tonno e pomodori...">
+<button onclick="generateRecipe()">Genera Ricetta</button>
+<div id="recipe"></div>
+</div>
+</div>
+<script src="script.js"></script>
+</body>
+</html>
